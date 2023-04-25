@@ -9,7 +9,12 @@ const connection = mysql.createConnection({
     password: 'root',
     database: 'lojavirtual'
 });
+
 connection.connect();
+
+app.use(cors({ 
+    origin: '*' 
+}));
 
 app.get('/products/legumes',function(req,res){
     connection.query('SELECT * FROM products WHERE price >= 10 and category="Legumes"', function(error,results){
@@ -43,10 +48,6 @@ app.get('/products/legumes/1',function(req,res){
         }
     })
 })
-
-app.use(cors({ 
-    origin: '*' 
-}));
 
 app.listen(9901,'0.0.0.0', function(){
     console.log("Aplicatação rodando na porta: 9901");
